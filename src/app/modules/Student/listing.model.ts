@@ -5,7 +5,7 @@ import {
   ListingModel,
   TListing,
   
-} from './student.interface';
+} from './listing.interface';
 
 const ImageSchema = new Schema<IImage>({
   url: { type: String, required: true },
@@ -23,7 +23,9 @@ const listingSchema = new Schema<TListing>(
     name: { type: String, required: true },
     summary: { type: String },
     type: { type: String, required: true },
-    beforeTaxPrice: { type: Number, required: true },
+    location:{type:String,required:true},
+    bedRoom:{type:String,required:true},
+    price: { type: Number, required: true },
     taxPrice:{ type: Number, required: true },
     afterTaxPrice:{ type: Number, required: true },
     availableStart: { type: Date, required: true },
@@ -31,10 +33,10 @@ const listingSchema = new Schema<TListing>(
   },
   { timestamps: true } // Adds createdAt and updatedAt fields automatically
 );
-//virtual
-// studentSchema.virtual('fullName').get(function () {
-//   return this?.name?.firstName + this?.name?.middleName + this?.name?.lastName;
-// });
+// virtual
+listingSchema.virtual('totalPrice').get(function () {
+  return this?.price + this?.taxPrice ;
+});
 
 // Query Middleware
 // studentSchema.pre('find', function (next) {

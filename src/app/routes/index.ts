@@ -3,7 +3,7 @@ import { AuthRoutes } from '../modules/Auth/auth.route';
 
 
 
-import { StudentRoutes } from '../modules/Student/student.route';
+import { StudentRoutes } from '../modules/Student/listing.route';
 // import { UserRoutes } from '../modules/User/user.route';
 
 const router = Router();

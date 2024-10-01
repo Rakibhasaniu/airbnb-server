@@ -58,11 +58,14 @@ class QueryBuilder<T> {
     if (queryObj.price) {
       const priceRange = queryObj.price as string;
       const [minPrice, maxPrice] = priceRange.split('-').map(Number);
-
+      console.log(minPrice,maxPrice)
+    
       if (!isNaN(minPrice) && !isNaN(maxPrice)) {
-          queryObj.beforeTaxPrice = { $gte: minPrice, $lte: maxPrice };
+        queryObj.price = { $gte: minPrice, $lte: maxPrice }
+        
       }
-  }
+      console.log(queryObj)
+    }
     // Clean up potential conflicting filters for the same fields
     this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
 
