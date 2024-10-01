@@ -12,18 +12,52 @@ class QueryBuilder<T> {
   search(searchableFields: string[]) {
     const searchTerm = this?.query?.searchTerm;
     if (searchTerm) {
-      this.modelQuery = this.modelQuery.find({
-        $or: searchableFields.map(
-          (field) =>
-            ({
-              [field]: { $regex: searchTerm, $options: 'i' },
-            }) as FilterQuery<T>,
-        ),
-      });
+        // Searching in specified searchable fields
+        this.modelQuery = this.modelQuery.find({
+            $or: searchableFields.map(
+                (field) =>
+                    ({
+                        [field]: { $regex: searchTerm, $options: 'i' },
+                    } as FilterQuery<T>),
+            ),
+        });
+
+        // Additionally, search in amenities
+        this.modelQuery = this.modelQuery.find({
+            $or: [
+                ...searchableFields.map((field) => ({
+                    [field]: { $regex: searchTerm, $options: 'i' },
+                })),
+                {
+                    amenities: {
+                        $elemMatch: {
+                            name: { $regex: searchTerm, $options: 'i' }, // Matching amenities
+                        },
+                    },
+                },
+            ],
+        });
     }
 
     return this;
-  }
+}
+
+
+  // search(searchableFields: string[]) {
+  //   const searchTerm = this?.query?.searchTerm;
+  //   if (searchTerm) {
+  //     this.modelQuery = this.modelQuery.find({
+  //       $or: searchableFields.map(
+  //         (field) =>
+  //           ({
+  //             [field]: { $regex: searchTerm, $options: 'i' },
+  //           }) as FilterQuery<T>,
+  //       ),
+  //     });
+  //   }
+
+  //   return this;
+  // }
 
   // filter() {
   //   const queryObj = { ...this.query }; // copy

@@ -3,14 +3,14 @@ import { AuthRoutes } from '../modules/Auth/auth.route';
 
 
 
-import { StudentRoutes } from '../modules/Student/listing.route';
+import { StudentRoutes } from '../modules/Listing/listing.route';
 // import { UserRoutes } from '../modules/User/user.route';
 
 const router = Router();
 
 const moduleRoutes = [
   {
-    path: '/students',
+    path: '/listing',
     route: StudentRoutes,
   },
   {
