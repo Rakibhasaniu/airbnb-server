@@ -15,9 +15,9 @@ export type TListing = {
   name: string;
   summary: string;
   type: string;
-  beforeTaxPrice: string;
-  taxPrice:string;
-  afterTaxPrice: string;
+  beforeTaxPrice: number;
+  taxPrice:number;
+  afterTaxPrice: number;
   availableStart: Date;
   availableEnd: Date; 
   

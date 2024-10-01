@@ -25,18 +25,50 @@ class QueryBuilder<T> {
     return this;
   }
 
+  // filter() {
+  //   const queryObj = { ...this.query }; // copy
+
+  //   // Filtering
+  //   const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
+
+  //   excludeFields.forEach((el) => delete queryObj[el]);
+
+  //   this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
+
+  //   return this;
+  // }
   filter() {
     const queryObj = { ...this.query }; // copy
 
-    // Filtering
+    // Exclude fields not needed for filtering
     const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
-
     excludeFields.forEach((el) => delete queryObj[el]);
 
+    // Handle date range filtering
+    if (queryObj.availableStart && queryObj.availableEnd) {
+        const startDate = new Date(queryObj.availableStart as string);
+        const endDate = new Date(queryObj.availableEnd as string);
+
+        if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
+            queryObj.availableStart = { $lte: startDate }; // Available on or before this start date
+            queryObj.availableEnd = { $gte: endDate }; // Available on or after this end date
+        }
+    }
+
+    if (queryObj.price) {
+      const priceRange = queryObj.price as string;
+      const [minPrice, maxPrice] = priceRange.split('-').map(Number);
+
+      if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+          queryObj.beforeTaxPrice = { $gte: minPrice, $lte: maxPrice };
+      }
+  }
+    // Clean up potential conflicting filters for the same fields
     this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
 
     return this;
-  }
+}
+
 
   sort() {
     const sort =
