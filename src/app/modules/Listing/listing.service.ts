@@ -15,24 +15,7 @@ const createListing = async(payload:any) => {
   return result;
 }
 
-const getAllListingFromDB = async (query) => {
-  // const studentQuery = new QueryBuilder(
-  //   Listing.find(),
-  //   query,
-  // )
-  //   .search(studentSearchableFields)
-  //   .filter()
-  //   .sort()
-  //   .paginate()
-  //   .fields();
-
-  // const meta = await studentQuery.countTotal();
-  // const result = await studentQuery.modelQuery;
-
-  // return {
-  //   meta,
-  //   result,
-  // };
+const getAllListingFromDB = async (query:any) => {
   const data = new QueryBuilder(Listing.find(),query).search(listingSearchableFields).filter().fields();
   const meta= await data.countTotal()
 

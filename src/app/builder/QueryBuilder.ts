@@ -42,35 +42,6 @@ class QueryBuilder<T> {
     return this;
 }
 
-
-  // search(searchableFields: string[]) {
-  //   const searchTerm = this?.query?.searchTerm;
-  //   if (searchTerm) {
-  //     this.modelQuery = this.modelQuery.find({
-  //       $or: searchableFields.map(
-  //         (field) =>
-  //           ({
-  //             [field]: { $regex: searchTerm, $options: 'i' },
-  //           }) as FilterQuery<T>,
-  //       ),
-  //     });
-  //   }
-
-  //   return this;
-  // }
-
-  // filter() {
-  //   const queryObj = { ...this.query }; // copy
-
-  //   // Filtering
-  //   const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
-
-  //   excludeFields.forEach((el) => delete queryObj[el]);
-
-  //   this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
-
-  //   return this;
-  // }
   filter() {
     const queryObj = { ...this.query }; // copy
 

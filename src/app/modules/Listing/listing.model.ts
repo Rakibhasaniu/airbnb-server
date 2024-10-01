@@ -19,7 +19,7 @@ const listingSchema = new Schema<TListing>(
   {
     id: { type: String },
     images: { type: [ImageSchema], required: true },
-    amenities:{type:[AmenitiesSchema],required:true}, // Array of image objects
+    amenities:{type:[AmenitiesSchema],required:true}, 
     name: { type: String, required: true },
     summary: { type: String },
     type: { type: String, required: true },
@@ -31,28 +31,14 @@ const listingSchema = new Schema<TListing>(
     availableStart: { type: Date, required: true },
     availableEnd: { type: Date, required: true },
   },
-  { timestamps: true } // Adds createdAt and updatedAt fields automatically
+  { timestamps: true } 
 );
-// virtual
+
 listingSchema.virtual('totalPrice').get(function () {
   return this?.price + this?.taxPrice ;
 });
 
-// Query Middleware
-// studentSchema.pre('find', function (next) {
-//   this.find({ isDeleted: { $ne: true } });
-//   next();
-// });
 
-// studentSchema.pre('findOne', function (next) {
-//   this.find({ isDeleted: { $ne: true } });
-//   next();
-// });
-
-// studentSchema.pre('aggregate', function (next) {
-//   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
-//   next();
-// });
 
 //creating a custom static method
 listingSchema.statics.isUserExists = async function (id: string) {

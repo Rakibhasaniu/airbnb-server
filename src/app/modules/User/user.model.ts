@@ -35,7 +35,6 @@ const userSchema = new Schema<TUser, UserModel>(
 userSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this; // doc
-  // hashing password and save into DB
   user.password = await bcrypt.hash(
     user.password as string,
     Number(config.bcrypt_salt_rounds),
@@ -43,7 +42,6 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// set '' after saving password
 userSchema.post('save', function (doc, next) {
   doc.password = '';
   next();

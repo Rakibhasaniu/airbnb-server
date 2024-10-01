@@ -1,20 +1,20 @@
 import express from 'express';
-import { StudentControllers } from './listing.controller';
+import { ListingControllers } from './listing.controller';
 
 const router = express.Router();
 
-router.post('/create',StudentControllers.createListing)
+router.post('/create',ListingControllers.createListing)
 
 router.get(
   '/',
-  StudentControllers.getAllListing,
+  ListingControllers.getAllListing,
 );
 
 router.get(
   '/:id',
   
-  StudentControllers.getSingleListing,
+  ListingControllers.getSingleListing,
 );
 
 
-export const StudentRoutes = router;
+export const ListingRoutes = router;
