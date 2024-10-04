@@ -40,7 +40,7 @@ const getAllListing: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-export const ListingControllers = {
+export const ListigitngControllers = {
   getAllListing,
   getSingleListing,
   createListing,
