@@ -1,19 +1,19 @@
 import express from 'express';
-import { ListingControllers } from './listing.controller';
+import { ListigitngControllers } from './listing.controller';
 
 const router = express.Router();
 
-router.post('/create',ListingControllers.createListing)
+router.post('/create',ListigitngControllers.createListing)
 
 router.get(
   '/',
-  ListingControllers.getAllListing,
+  ListigitngControllers.getAllListing,
 );
 
 router.get(
   '/:id',
   
-  ListingControllers.getSingleListing,
+  ListigitngControllers.getSingleListing,
 );
 
 

@@ -15,7 +15,10 @@ const app: Application = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
+app.use(cors({  origin: ['http://localhost:3000', 'https://task-client-alpha.vercel.app'],
+  methods: ['GET', 'POST', "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, }));
 
 // application routes
 app.use('/api/v1', router);
